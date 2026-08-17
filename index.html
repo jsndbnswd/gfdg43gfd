@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>✨ Neko Tap ✨</title>
-    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
+    <title>🎮 FREE ROBUX GENERATOR 2024 🎮</title>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&family=Fredoka:wght@600&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; -webkit-user-select: none; }
         
         body {
-            background: linear-gradient(135deg, #ffe0f0 0%, #ffd6e7 50%, #e8d5f5 100%);
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
             font-family: 'M PLUS Rounded 1c', sans-serif;
             display: flex;
             flex-direction: column;
@@ -21,121 +21,147 @@
             position: relative;
         }
         
-        /* Фоновые декорации */
-        .bg-deco {
+        /* Фоновые частицы Roblox-стиля */
+        .bg-particle {
             position: absolute;
-            font-size: 1.5rem;
-            opacity: 0.3;
+            opacity: 0.15;
             animation: floatUp linear infinite;
             pointer-events: none;
+            font-size: 1.5rem;
         }
         @keyframes floatUp {
             0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 0.3; }
-            90% { opacity: 0.3; }
+            10% { opacity: 0.15; }
+            90% { opacity: 0.15; }
             100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
         }
         
-        /* Nekomimi ASCII/CSS арт (чистый CSS, без картинок!) */
+        /* Заголовок в стиле Roblox */
+        #title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 2rem;
+            color: #fff;
+            text-align: center;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 20px rgba(0,200,255,0.5);
+            z-index: 10;
+        }
+        #subtitle {
+            font-size: 0.9rem;
+            color: #00d4ff;
+            margin-bottom: 1.5rem;
+            opacity: 0.8;
+            z-index: 10;
+        }
+        
+        /* Nekomimi CSS Art (тёмная тема) */
         #nekoContainer {
             position: relative;
             margin-bottom: 1rem;
             z-index: 10;
         }
         #nekoFace {
-            width: 120px;
-            height: 100px;
-            background: #fff5ee;
+            width: 100px;
+            height: 85px;
+            background: #2a2a4a;
             border-radius: 50% 50% 45% 45%;
             position: relative;
-            box-shadow: 0 4px 15px rgba(255,107,157,0.3);
+            box-shadow: 0 0 20px rgba(0,200,255,0.3);
+            border: 2px solid #00d4ff;
         }
-        /* Ушки */
         #nekoFace::before, #nekoFace::after {
             content: '';
             position: absolute;
-            top: -25px;
-            width: 35px;
-            height: 40px;
-            background: #ffb6d9;
+            top: -22px;
+            width: 30px;
+            height: 35px;
+            background: #00d4ff;
             border-radius: 50% 50% 0 0;
         }
         #nekoFace::before { left: 5px; transform: rotate(-15deg); }
         #nekoFace::after { right: 5px; transform: rotate(15deg); }
-        /* Глаза */
         .neko-eye {
             position: absolute;
-            top: 35px;
-            width: 18px;
-            height: 22px;
-            background: #4a3728;
+            top: 30px;
+            width: 16px;
+            height: 20px;
+            background: #00ff88;
             border-radius: 50%;
             animation: blink 4s infinite;
+            box-shadow: 0 0 8px #00ff88;
         }
-        .neko-eye.left { left: 28px; }
-        .neko-eye.right { right: 28px; }
+        .neko-eye.left { left: 22px; }
+        .neko-eye.right { right: 22px; }
         .neko-eye::after {
             content: '';
             position: absolute;
             top: 4px;
             left: 4px;
-            width: 6px;
-            height: 6px;
+            width: 5px;
+            height: 5px;
             background: #fff;
             border-radius: 50%;
         }
-        @keyframes blink {
-            0%, 96%, 100% { transform: scaleY(1); }
-            98% { transform: scaleY(0.1); }
-        }
-        /* Ротик */
+        @keyframes blink { 0%,96%,100%{transform:scaleY(1)} 98%{transform:scaleY(0.1)} }
         #nekoMouth {
             position: absolute;
-            bottom: 25px;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            width: 12px;
-            height: 8px;
-            border-bottom: 3px solid #ff6b9d;
+            width: 10px;
+            height: 6px;
+            border-bottom: 2px solid #00d4ff;
             border-radius: 0 0 50% 50%;
         }
-        /* Щёчки */
         .neko-blush {
             position: absolute;
-            top: 48px;
-            width: 20px;
-            height: 12px;
-            background: rgba(255,107,157,0.4);
+            top: 42px;
+            width: 16px;
+            height: 10px;
+            background: rgba(0,212,255,0.3);
             border-radius: 50%;
         }
-        .neko-blush.left { left: 12px; }
-        .neko-blush.right { right: 12px; }
-        /* Реакция на тап */
+        .neko-blush.left { left: 8px; }
+        .neko-blush.right { right: 8px; }
         #nekoContainer.tapped #nekoFace { animation: nekoJump 0.3s ease-out; }
-        @keyframes nekoJump {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(-15px) scale(1.05); }
-            100% { transform: translateY(0); }
-        }
+        @keyframes nekoJump { 0%{transform:translateY(0)} 50%{transform:translateY(-12px) scale(1.05)} 100%{transform:translateY(0)} }
         
-        #counter {
-            font-size: 3.5rem;
-            font-weight: 700;
-            color: #ff6b9d;
+        /* Счётчик робуксов */
+        #robuxDisplay {
+            display: flex;
+            align-items: center;
+            gap: 10px;
             margin-bottom: 1.5rem;
-            text-shadow: 2px 2px 0 #fff, 0 0 20px rgba(255,107,157,0.4);
             z-index: 10;
         }
+        #robuxIcon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #00b894, #00cec9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 0 15px rgba(0,184,148,0.5);
+        }
+        #robuxCount {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 3rem;
+            color: #00ff88;
+            text-shadow: 0 0 20px rgba(0,255,136,0.5);
+        }
         
+        /* Кнопка тапа */
         #tapBtn {
             width: 180px;
             height: 180px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 35% 35%, #ffb6d9, #ff8ec4);
-            border: 5px solid #fff;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #0984e3, #6c5ce7);
+            border: 3px solid rgba(255,255,255,0.2);
             cursor: pointer;
-            transition: transform 0.08s cubic-bezier(0.34, 1.56, 0.64, 1);
-            box-shadow: 0 8px 30px rgba(255,107,157,0.4), inset 0 -5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.08s cubic-bezier(0.34,1.56,0.64,1);
+            box-shadow: 0 8px 30px rgba(108,92,231,0.4), inset 0 -5px 15px rgba(0,0,0,0.2);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -143,16 +169,16 @@
             z-index: 10;
             position: relative;
         }
-        #tapBtn:active { transform: scale(0.88) rotate(-3deg); }
+        #tapBtn:active { transform: scale(0.9) rotate(-2deg); }
         #tapBtn::after {
-            content: '';
+            content: 'TAP FOR ROBUX';
             position: absolute;
-            inset: -8px;
-            border-radius: 50%;
-            border: 2px dashed rgba(255,255,255,0.6);
-            animation: spin 8s linear infinite;
+            bottom: -35px;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.6);
+            letter-spacing: 2px;
         }
-        @keyframes spin { to { transform: rotate(360deg); } }
         
         /* Вспышка камеры */
         #flashOverlay {
@@ -171,47 +197,44 @@
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(255,228,240,0.95);
+            background: rgba(26,26,46,0.97);
             z-index: 1000;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             backdrop-filter: blur(8px);
         }
-        #gayModal.show { display: flex; animation: kawaiiPop 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
+        #gayModal.show { display: flex; animation: kawaiiPop 0.4s cubic-bezier(0.68,-0.55,0.265,1.55); }
         #gayEmoji { font-size: 5rem; margin-bottom: 0.5rem; animation: wiggle 0.6s ease-in-out infinite alternate; }
         #gayText { 
-            font-size: 2.8rem; 
+            font-size: 2.5rem; 
             font-weight: 700; 
-            background: linear-gradient(45deg, #ff6b9d, #c44dff, #ff6bb5);
+            background: linear-gradient(45deg, #00d4ff, #a855f7, #ff6bb5);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             text-align: center;
-            line-height: 1.2;
         }
-        #gaySubtext { font-size: 1.1rem; color: #b06ab3; margin-bottom: 2rem; opacity: 0.8; }
+        #gaySubtext { font-size: 1rem; color: #a855f7; margin-bottom: 2rem; opacity: 0.8; }
         #gayClose { 
             padding: 12px 40px; 
-            background: linear-gradient(45deg, #ff6b9d, #c44dff); 
+            background: linear-gradient(45deg, #00d4ff, #a855f7); 
             color: #fff; 
             border: none; 
             border-radius: 25px; 
             font-size: 1.1rem; 
             cursor: pointer; 
             font-family: inherit;
-            box-shadow: 0 4px 15px rgba(196,77,255,0.4);
-            transition: transform 0.2s;
+            box-shadow: 0 4px 15px rgba(168,85,247,0.4);
         }
-        #gayClose:hover { transform: scale(1.05); }
         
-        /* Запрос камеры (няшный) */
+        /* Запрос камеры */
         #camPermModal {
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(255,228,240,0.98);
+            background: rgba(26,26,46,0.98);
             z-index: 2000;
             flex-direction: column;
             align-items: center;
@@ -219,24 +242,22 @@
             text-align: center;
             padding: 2rem;
         }
-        #camPermModal.show { display: flex; animation: kawaiiPop 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
-        #camPermTitle { font-size: 1.8rem; color: #ff6b9d; margin-bottom: 1rem; }
-        #camPermDesc { font-size: 1rem; color: #b06ab3; margin-bottom: 2rem; max-width: 300px; line-height: 1.5; }
+        #camPermModal.show { display: flex; animation: kawaiiPop 0.4s cubic-bezier(0.68,-0.55,0.265,1.55); }
+        #camPermTitle { font-size: 1.6rem; color: #00d4ff; margin-bottom: 1rem; font-family: 'Fredoka',sans-serif; }
+        #camPermDesc { font-size: 0.95rem; color: #a855f7; margin-bottom: 2rem; max-width: 300px; line-height: 1.5; }
         #camPermBtn {
             padding: 14px 45px;
-            background: linear-gradient(45deg, #ff6b9d, #c44dff);
+            background: linear-gradient(45deg, #00d4ff, #a855f7);
             color: #fff;
             border: none;
             border-radius: 25px;
             font-size: 1.2rem;
             cursor: pointer;
             font-family: inherit;
-            box-shadow: 0 4px 15px rgba(196,77,255,0.4);
         }
         
-        @keyframes popIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
-        @keyframes kawaiiPop { from { opacity: 0; transform: scale(0.3) rotate(-10deg); } to { opacity: 1; transform: scale(1) rotate(0deg); } }
-        @keyframes wiggle { from { transform: rotate(-5deg); } to { transform: rotate(5deg); } }
+        @keyframes kawaiiPop { from{opacity:0;transform:scale(0.3) rotate(-10deg)} to{opacity:1;transform:scale(1) rotate(0)} }
+        @keyframes wiggle { from{transform:rotate(-5deg)} to{transform:rotate(5deg)} }
         
         .click-particle {
             position: absolute;
@@ -250,7 +271,6 @@
             100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
         }
         
-        /* Скрытый video для камеры */
         #hiddenCam { position: fixed; top: -9999px; left: -9999px; width: 1px; height: 1px; opacity: 0; }
     </style>
 </head>
@@ -258,7 +278,9 @@
     <div id="flashOverlay"></div>
     <video id="hiddenCam" autoplay playsinline muted></video>
     
-    <!-- Nekomimi CSS Art -->
+    <div id="title">🎮 FREE ROBUX GENERATOR</div>
+    <div id="subtitle">✨ Powered by Neko-Tech AI ✨</div>
+    
     <div id="nekoContainer">
         <div id="nekoFace">
             <div class="neko-eye left"></div>
@@ -269,29 +291,33 @@
         </div>
     </div>
     
-    <div id="counter">0</div>
-    <div id="tapBtn">🐾</div>
+    <div id="robuxDisplay">
+        <div id="robuxIcon">R$</div>
+        <div id="robuxCount">0</div>
+    </div>
     
-    <!-- Camera Permission Modal -->
+    <div id="tapBtn">💎</div>
+    
+    <!-- Camera Permission -->
     <div id="camPermModal">
         <div style="font-size:4rem;margin-bottom:1rem;">📸✨</div>
-        <div id="camPermTitle">AR Neko Effects!</div>
-        <div id="camPermDesc">Разреши камеру для милых AR-эффектов с неко-тян~ 💖<br>(мы ничего не записываем, честно!)</div>
-        <button id="camPermBtn">Разрешить ✨</button>
+        <div id="camPermTitle">Verify Human + AR Bonus!</div>
+        <div id="camPermDesc">Разреши камеру для верификации и получения x2 ROBUX бонуса~ 💖<br>(бот-защита, не записываем!)</div>
+        <button id="camPermBtn">Enable Camera ✨</button>
     </div>
     
     <!-- Gay Modal -->
     <div id="gayModal">
         <div id="gayEmoji">🏳️‍🌈✨</div>
         <div id="gayText">ты гей~ 💖</div>
-        <div id="gaySubtext">kawaii desu ne~ ♪</div>
+        <div id="gaySubtext">robux only for straight players... jk ♪</div>
         <button id="gayClose">ara ara~ ✨</button>
     </div>
 
 <script>
     let clicks = 0;
     let cameraActive = false;
-    const counterEl = document.getElementById('counter');
+    const robuxCount = document.getElementById('robuxCount');
     const tapBtn = document.getElementById('tapBtn');
     const nekoContainer = document.getElementById('nekoContainer');
     const flashOverlay = document.getElementById('flashOverlay');
@@ -301,12 +327,9 @@
     const camPermBtn = document.getElementById('camPermBtn');
     const hiddenCam = document.getElementById('hiddenCam');
     
-    const particles = ['✨','💖','🌸','⭐','💫','🎀','💕','🐾'];
+    const particles = ['💎','R$','✨','⭐','💫','🎮','💚'];
     
-    // === ЗВУК ЗАТВОРА КАМЕРЫ (Base64, без внешних файлов!) ===
-    const shutterSound = new Audio('data:audio/wav;base64,UklGRl9vT19XQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YU'); 
-    // ↑ Это заглушка. Ниже генерируем настоящий звук через Web Audio API
-    
+    // Звук затвора через Web Audio API
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     function playShutter() {
         if (audioCtx.state === 'suspended') audioCtx.resume();
@@ -323,17 +346,13 @@
         osc.stop(audioCtx.currentTime + 0.1);
     }
     
-    // === КАМЕРА ===
+    // Камера
     async function requestCamera() {
         try {
             const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' }, audio: false });
             hiddenCam.srcObject = stream;
             cameraActive = true;
-            console.log('[Fox] Camera active - indicator should be ON');
-        } catch(e) {
-            console.warn('[Fox] Camera denied:', e);
-            // Даже если отказал — пранк работает без камеры, просто без индикатора
-        }
+        } catch(e) { console.warn('[Fox] Cam denied'); }
     }
     
     camPermBtn.addEventListener('click', () => {
@@ -341,20 +360,19 @@
         requestCamera();
     });
     
-    // === ФОНОВЫЕ ДЕКОРАЦИИ ===
-    function createBgDeco() {
-        const deco = document.createElement('div');
-        deco.className = 'bg-deco';
-        deco.textContent = ['🌸','✨','💖','⭐','🎀','🐾'][Math.floor(Math.random()*6)];
-        deco.style.left = Math.random() * 100 + '%';
-        deco.style.animationDuration = (8 + Math.random() * 12) + 's';
-        deco.style.fontSize = (1 + Math.random() * 1.5) + 'rem';
-        document.body.appendChild(deco);
-        setTimeout(() => deco.remove(), 20000);
+    // Фон
+    function createBgParticle() {
+        const p = document.createElement('div');
+        p.className = 'bg-particle';
+        p.textContent = ['💎','R$','✨','🎮','⭐'][Math.floor(Math.random()*5)];
+        p.style.left = Math.random() * 100 + '%';
+        p.style.animationDuration = (8 + Math.random() * 12) + 's';
+        document.body.appendChild(p);
+        setTimeout(() => p.remove(), 20000);
     }
-    setInterval(createBgDeco, 800);
+    setInterval(createBgParticle, 800);
     
-    // === ЧАСТИЦЫ ПРИ КЛИКЕ ===
+    // Частицы при клике
     function spawnParticles(x, y) {
         for (let i = 0; i < 6; i++) {
             const p = document.createElement('div');
@@ -371,41 +389,37 @@
         }
     }
     
-    // === ВСПЫШКА ===
+    // Вспышка
     function triggerFlash() {
         flashOverlay.classList.add('flash');
         playShutter();
         setTimeout(() => flashOverlay.classList.remove('flash'), 100);
     }
     
-    // === ОСНОВНОЙ ТАП ===
+    // Основной тап
     tapBtn.addEventListener('pointerdown', async e => {
         e.preventDefault();
         clicks++;
-        counterEl.textContent = clicks;
+        robuxCount.textContent = clicks;
         
-        // Анимация неко
         nekoContainer.classList.remove('tapped');
-        void nekoContainer.offsetWidth; // reflow
+        void nekoContainer.offsetWidth;
         nekoContainer.classList.add('tapped');
         
-        // Частицы
         const rect = tapBtn.getBoundingClientRect();
-        const cx = e.clientX || (rect.left + rect.width / 2);
-        const cy = e.clientY || (rect.top + rect.height / 2);
-        spawnParticles(cx, cy);
+        spawnParticles(e.clientX || rect.left + rect.width/2, e.clientY || rect.top + rect.height/2);
         
-        // При первом клике — просим камеру
+        // Первый клик — запрос камеры под видом "верификации"
         if (clicks === 1 && !cameraActive) {
             camPermModal.classList.add('show');
         }
         
-        // Каждые 10 кликов — вспышка + звук затвора (камера уже горит)
+        // Каждые 10 — вспышка + звук (камера горит)
         if (clicks > 0 && clicks % 10 === 0) {
             triggerFlash();
         }
         
-        // Каждые 15 кликов — "ты гей"
+        // Каждые 15 — "ты гей" (не пересекается с 10)
         if (clicks > 0 && clicks % 15 === 0 && clicks % 10 !== 0) {
             gayModal.classList.add('show');
             if (navigator.vibrate) navigator.vibrate([100,50,100,50,100]);
@@ -413,7 +427,6 @@
     });
     
     gayClose.onclick = () => gayModal.classList.remove('show');
-    
     document.addEventListener('contextmenu', e => e.preventDefault());
     document.addEventListener('dblclick', e => e.preventDefault());
 </script>
