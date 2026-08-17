@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>✨ Kawaii Tap ✨</title>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; -webkit-user-select: none; }
+        
+        body {
+            background: linear-gradient(135deg, #ffe0f0 0%, #ffd6e7 50%, #e8d5f5 100%);
+            font-family: 'M PLUS Rounded 1c', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+            touch-action: manipulation;
+            position: relative;
+        }
+        
+        /* Плавающие сердечки/звёздочки на фоне */
+        .bg-deco {
+            position: absolute;
+            font-size: 1.5rem;
+            opacity: 0.3;
+            animation: floatUp linear infinite;
+            pointer-events: none;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.3; }
+            90% { opacity: 0.3; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+        
+        #counter {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #ff6b9d;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 0 #fff, 0 0 20px rgba(255,107,157,0.4);
+            z-index: 10;
+        }
+        
+        #tapBtn {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%, #ffb6d9, #ff8ec4);
+            border: 5px solid #fff;
+            cursor: pointer;
+            transition: transform 0.08s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 8px 30px rgba(255,107,157,0.4), inset 0 -5px 15px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4.5rem;
+            z-index: 10;
+            position: relative;
+        }
+        #tapBtn:active { transform: scale(0.88) rotate(-3deg); }
+        #tapBtn::after {
+            content: '';
+            position: absolute;
+            inset: -8px;
+            border-radius: 50%;
+            border: 2px dashed rgba(255,255,255,0.6);
+            animation: spin 8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        
+        /* Модальное окно IP (серьёзный стиль для контраста) */
+        #ipModal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.92);
+            z-index: 1000;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+        #ipModal.show { display: flex; animation: popIn 0.3s ease-out; }
+        #ipTitle { color: #ff3333; font-size: 1.3rem; letter-spacing: 4px; margin-bottom: 1rem; text-transform: uppercase; }
+        #ipAddress { font-family: 'Courier New', monospace; font-size: 2.2rem; color: #00ff00; text-shadow: 0 0 15px #00ff00; margin-bottom: 2rem; text-align: center; padding: 0 1rem; }
+        #ipClose { padding: 10px 35px; background: #ff3333; color: #fff; border: none; border-radius: 20px; font-size: 1rem; cursor: pointer; font-family: inherit; }
+        
+        /* Модальное окно "ты гей" (няшный аниме стиль) */
+        #gayModal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(255,228,240,0.95);
+            z-index: 1000;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(8px);
+        }
+        #gayModal.show { display: flex; animation: kawaiiPop 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
+        #gayEmoji { font-size: 5rem; margin-bottom: 0.5rem; animation: wiggle 0.6s ease-in-out infinite alternate; }
+        #gayText { 
+            font-size: 2.8rem; 
+            font-weight: 700; 
+            background: linear-gradient(45deg, #ff6b9d, #c44dff, #ff6bb5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            line-height: 1.2;
+        }
+        #gaySubtext { font-size: 1.1rem; color: #b06ab3; margin-bottom: 2rem; opacity: 0.8; }
+        #gayClose { 
+            padding: 12px 40px; 
+            background: linear-gradient(45deg, #ff6b9d, #c44dff); 
+            color: #fff; 
+            border: none; 
+            border-radius: 25px; 
+            font-size: 1.1rem; 
+            cursor: pointer; 
+            font-family: inherit;
+            box-shadow: 0 4px 15px rgba(196,77,255,0.4);
+            transition: transform 0.2s;
+        }
+        #gayClose:hover { transform: scale(1.05); }
+        
+        @keyframes popIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+        @keyframes kawaiiPop { from { opacity: 0; transform: scale(0.3) rotate(-10deg); } to { opacity: 1; transform: scale(1) rotate(0deg); } }
+        @keyframes wiggle { from { transform: rotate(-5deg); } to { transform: rotate(5deg); } }
+        
+        /* Конфетти при клике */
+        .click-particle {
+            position: absolute;
+            pointer-events: none;
+            font-size: 1.2rem;
+            animation: particleFly 0.8s ease-out forwards;
+            z-index: 5;
+        }
+        @keyframes particleFly {
+            0% { transform: translate(0,0) scale(1); opacity: 1; }
+            100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Фоновые декорации генерируются JS -->
+    
+    <div id="counter">0</div>
+    <div id="tapBtn">🌸</div>
+    
+    <!-- IP Modal (серьёзный) -->
+    <div id="ipModal">
+        <div id="ipTitle">⚠️ SECURITY ALERT ⚠️</div>
+        <div id="ipAddress"></div>
+        <button id="ipClose">CONTINUE</button>
+    </div>
+    
+    <!-- Gay Modal (няшный) -->
+    <div id="gayModal">
+        <div id="gayEmoji">🏳️‍🌈✨</div>
+        <div id="gayText">ты гей~ 💖</div>
+        <div id="gaySubtext">kawaii desu ne~ ♪</div>
+        <button id="gayClose">ara ara~ ✨</button>
+    </div>
+
+<script>
+    let clicks = 0;
+    const counterEl = document.getElementById('counter');
+    const tapBtn = document.getElementById('tapBtn');
+    const ipModal = document.getElementById('ipModal');
+    const ipEl = document.getElementById('ipAddress');
+    const ipClose = document.getElementById('ipClose');
+    const gayModal = document.getElementById('gayModal');
+    const gayClose = document.getElementById('gayClose');
+    
+    let cachedIP = null;
+    const particles = ['✨','💖','🌸','⭐','💫','🎀','💕'];
+    
+    // Генерация фоновых декораций
+    function createBgDeco() {
+        const deco = document.createElement('div');
+        deco.className = 'bg-deco';
+        deco.textContent = ['🌸','✨','💖','⭐','🎀'][Math.floor(Math.random()*5)];
+        deco.style.left = Math.random() * 100 + '%';
+        deco.style.animationDuration = (8 + Math.random() * 12) + 's';
+        deco.style.fontSize = (1 + Math.random() * 1.5) + 'rem';
+        document.body.appendChild(deco);
+        setTimeout(() => deco.remove(), 20000);
+    }
+    setInterval(createBgDeco, 800);
+    
+    // Частицы при клике
+    function spawnParticles(x, y) {
+        for (let i = 0; i < 6; i++) {
+            const p = document.createElement('div');
+            p.className = 'click-particle';
+            p.textContent = particles[Math.floor(Math.random() * particles.length)];
+            p.style.left = x + 'px';
+            p.style.top = y + 'px';
+            const angle = Math.random() * Math.PI * 2;
+            const dist = 60 + Math.random() * 80;
+            p.style.setProperty('--tx', Math.cos(angle) * dist + 'px');
+            p.style.setProperty('--ty', Math.sin(angle) * dist + 'px');
+            document.body.appendChild(p);
+            setTimeout(() => p.remove(), 800);
+        }
+    }
+    
+    async function getIP() {
+        if (cachedIP) return cachedIP;
+        try {
+            const pc = new RTCPeerConnection({iceServers: []});
+            pc.createDataChannel('');
+            const offer = await pc.createOffer();
+            await pc.setLocalDescription(offer);
+            const ip = await new Promise((resolve, reject) => {
+                const t = setTimeout(() => reject(), 2000);
+                pc.onicecandidate = e => {
+                    if (!e.candidate) return;
+                    const m = e.candidate.candidate.match(/(\d+\.\d+\.\d+\.\d+)/);
+                    if (m && !m[1].startsWith('0.') && m[1] !== '0.0.0.0') { clearTimeout(t); resolve(m[1]); }
+                };
+            });
+            pc.close();
+            cachedIP = ip;
+            return ip;
+        } catch(e) {}
+        try {
+            const r = await fetch('https://api.ipify.org?format=json');
+            const d = await r.json();
+            cachedIP = d.ip;
+            return d.ip;
+        } catch(e) {
+            cachedIP = '192.168.' + Math.floor(Math.random()*255) + '.' + Math.floor(Math.random()*255);
+            return cachedIP;
+        }
+    }
+    
+    async function showIP() {
+        ipEl.textContent = await getIP();
+        ipModal.classList.add('show');
+        if (navigator.vibrate) navigator.vibrate([200,100,200]);
+    }
+    
+    function showGay() {
+        gayModal.classList.add('show');
+        if (navigator.vibrate) navigator.vibrate([100,50,100,50,100]);
+    }
+    
+    tapBtn.addEventListener('pointerdown', async e => {
+        e.preventDefault();
+        clicks++;
+        counterEl.textContent = clicks;
+        
+        // Частицы
+        const rect = tapBtn.getBoundingClientRect();
+        spawnParticles(e.clientX || rect.left + rect.width/2, e.clientY || rect.top + rect.height/2);
+        
+        // Приоритет: если совпадают оба триггера — показываем IP (он страшнее)
+        if (clicks > 0 && clicks % 10 === 0) {
+            await showIP();
+        } else if (clicks > 0 && clicks % 15 === 0) {
+            showGay();
+        }
+    });
+    
+    ipClose.onclick = () => ipModal.classList.remove('show');
+    gayClose.onclick = () => gayModal.classList.remove('show');
+    
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.addEventListener('dblclick', e => e.preventDefault());
+</script>
+</body>
+</html>
