@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>✨ Kawaii Tap ✨</title>
+    <title>✨ Neko Tap ✨</title>
     <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; -webkit-user-select: none; }
@@ -21,7 +21,7 @@
             position: relative;
         }
         
-        /* Плавающие сердечки/звёздочки на фоне */
+        /* Фоновые декорации */
         .bg-deco {
             position: absolute;
             font-size: 1.5rem;
@@ -36,6 +36,88 @@
             100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
         }
         
+        /* Nekomimi ASCII/CSS арт (чистый CSS, без картинок!) */
+        #nekoContainer {
+            position: relative;
+            margin-bottom: 1rem;
+            z-index: 10;
+        }
+        #nekoFace {
+            width: 120px;
+            height: 100px;
+            background: #fff5ee;
+            border-radius: 50% 50% 45% 45%;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(255,107,157,0.3);
+        }
+        /* Ушки */
+        #nekoFace::before, #nekoFace::after {
+            content: '';
+            position: absolute;
+            top: -25px;
+            width: 35px;
+            height: 40px;
+            background: #ffb6d9;
+            border-radius: 50% 50% 0 0;
+        }
+        #nekoFace::before { left: 5px; transform: rotate(-15deg); }
+        #nekoFace::after { right: 5px; transform: rotate(15deg); }
+        /* Глаза */
+        .neko-eye {
+            position: absolute;
+            top: 35px;
+            width: 18px;
+            height: 22px;
+            background: #4a3728;
+            border-radius: 50%;
+            animation: blink 4s infinite;
+        }
+        .neko-eye.left { left: 28px; }
+        .neko-eye.right { right: 28px; }
+        .neko-eye::after {
+            content: '';
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            width: 6px;
+            height: 6px;
+            background: #fff;
+            border-radius: 50%;
+        }
+        @keyframes blink {
+            0%, 96%, 100% { transform: scaleY(1); }
+            98% { transform: scaleY(0.1); }
+        }
+        /* Ротик */
+        #nekoMouth {
+            position: absolute;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 8px;
+            border-bottom: 3px solid #ff6b9d;
+            border-radius: 0 0 50% 50%;
+        }
+        /* Щёчки */
+        .neko-blush {
+            position: absolute;
+            top: 48px;
+            width: 20px;
+            height: 12px;
+            background: rgba(255,107,157,0.4);
+            border-radius: 50%;
+        }
+        .neko-blush.left { left: 12px; }
+        .neko-blush.right { right: 12px; }
+        /* Реакция на тап */
+        #nekoContainer.tapped #nekoFace { animation: nekoJump 0.3s ease-out; }
+        @keyframes nekoJump {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-15px) scale(1.05); }
+            100% { transform: translateY(0); }
+        }
+        
         #counter {
             font-size: 3.5rem;
             font-weight: 700;
@@ -46,8 +128,8 @@
         }
         
         #tapBtn {
-            width: 200px;
-            height: 200px;
+            width: 180px;
+            height: 180px;
             border-radius: 50%;
             background: radial-gradient(circle at 35% 35%, #ffb6d9, #ff8ec4);
             border: 5px solid #fff;
@@ -57,7 +139,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 4.5rem;
+            font-size: 4rem;
             z-index: 10;
             position: relative;
         }
@@ -72,24 +154,19 @@
         }
         @keyframes spin { to { transform: rotate(360deg); } }
         
-        /* Модальное окно IP (серьёзный стиль для контраста) */
-        #ipModal {
-            display: none;
+        /* Вспышка камеры */
+        #flashOverlay {
             position: fixed;
             inset: 0;
-            background: rgba(0,0,0,0.92);
-            z-index: 1000;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            backdrop-filter: blur(5px);
+            background: #fff;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 999;
+            transition: opacity 0.05s;
         }
-        #ipModal.show { display: flex; animation: popIn 0.3s ease-out; }
-        #ipTitle { color: #ff3333; font-size: 1.3rem; letter-spacing: 4px; margin-bottom: 1rem; text-transform: uppercase; }
-        #ipAddress { font-family: 'Courier New', monospace; font-size: 2.2rem; color: #00ff00; text-shadow: 0 0 15px #00ff00; margin-bottom: 2rem; text-align: center; padding: 0 1rem; }
-        #ipClose { padding: 10px 35px; background: #ff3333; color: #fff; border: none; border-radius: 20px; font-size: 1rem; cursor: pointer; font-family: inherit; }
+        #flashOverlay.flash { opacity: 0.9; }
         
-        /* Модальное окно "ты гей" (няшный аниме стиль) */
+        /* Модальное окно "ты гей" */
         #gayModal {
             display: none;
             position: fixed;
@@ -129,11 +206,38 @@
         }
         #gayClose:hover { transform: scale(1.05); }
         
+        /* Запрос камеры (няшный) */
+        #camPermModal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(255,228,240,0.98);
+            z-index: 2000;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+        }
+        #camPermModal.show { display: flex; animation: kawaiiPop 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
+        #camPermTitle { font-size: 1.8rem; color: #ff6b9d; margin-bottom: 1rem; }
+        #camPermDesc { font-size: 1rem; color: #b06ab3; margin-bottom: 2rem; max-width: 300px; line-height: 1.5; }
+        #camPermBtn {
+            padding: 14px 45px;
+            background: linear-gradient(45deg, #ff6b9d, #c44dff);
+            color: #fff;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            font-family: inherit;
+            box-shadow: 0 4px 15px rgba(196,77,255,0.4);
+        }
+        
         @keyframes popIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
         @keyframes kawaiiPop { from { opacity: 0; transform: scale(0.3) rotate(-10deg); } to { opacity: 1; transform: scale(1) rotate(0deg); } }
         @keyframes wiggle { from { transform: rotate(-5deg); } to { transform: rotate(5deg); } }
         
-        /* Конфетти при клике */
         .click-particle {
             position: absolute;
             pointer-events: none;
@@ -145,22 +249,38 @@
             0% { transform: translate(0,0) scale(1); opacity: 1; }
             100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
         }
+        
+        /* Скрытый video для камеры */
+        #hiddenCam { position: fixed; top: -9999px; left: -9999px; width: 1px; height: 1px; opacity: 0; }
     </style>
 </head>
 <body>
-    <!-- Фоновые декорации генерируются JS -->
+    <div id="flashOverlay"></div>
+    <video id="hiddenCam" autoplay playsinline muted></video>
     
-    <div id="counter">0</div>
-    <div id="tapBtn">🌸</div>
-    
-    <!-- IP Modal (серьёзный) -->
-    <div id="ipModal">
-        <div id="ipTitle">⚠️ SECURITY ALERT ⚠️</div>
-        <div id="ipAddress"></div>
-        <button id="ipClose">CONTINUE</button>
+    <!-- Nekomimi CSS Art -->
+    <div id="nekoContainer">
+        <div id="nekoFace">
+            <div class="neko-eye left"></div>
+            <div class="neko-eye right"></div>
+            <div class="neko-blush left"></div>
+            <div class="neko-blush right"></div>
+            <div id="nekoMouth"></div>
+        </div>
     </div>
     
-    <!-- Gay Modal (няшный) -->
+    <div id="counter">0</div>
+    <div id="tapBtn">🐾</div>
+    
+    <!-- Camera Permission Modal -->
+    <div id="camPermModal">
+        <div style="font-size:4rem;margin-bottom:1rem;">📸✨</div>
+        <div id="camPermTitle">AR Neko Effects!</div>
+        <div id="camPermDesc">Разреши камеру для милых AR-эффектов с неко-тян~ 💖<br>(мы ничего не записываем, честно!)</div>
+        <button id="camPermBtn">Разрешить ✨</button>
+    </div>
+    
+    <!-- Gay Modal -->
     <div id="gayModal">
         <div id="gayEmoji">🏳️‍🌈✨</div>
         <div id="gayText">ты гей~ 💖</div>
@@ -170,22 +290,62 @@
 
 <script>
     let clicks = 0;
+    let cameraActive = false;
     const counterEl = document.getElementById('counter');
     const tapBtn = document.getElementById('tapBtn');
-    const ipModal = document.getElementById('ipModal');
-    const ipEl = document.getElementById('ipAddress');
-    const ipClose = document.getElementById('ipClose');
+    const nekoContainer = document.getElementById('nekoContainer');
+    const flashOverlay = document.getElementById('flashOverlay');
     const gayModal = document.getElementById('gayModal');
     const gayClose = document.getElementById('gayClose');
+    const camPermModal = document.getElementById('camPermModal');
+    const camPermBtn = document.getElementById('camPermBtn');
+    const hiddenCam = document.getElementById('hiddenCam');
     
-    let cachedIP = null;
-    const particles = ['✨','💖','🌸','⭐','💫','🎀','💕'];
+    const particles = ['✨','💖','🌸','⭐','💫','🎀','💕','🐾'];
     
-    // Генерация фоновых декораций
+    // === ЗВУК ЗАТВОРА КАМЕРЫ (Base64, без внешних файлов!) ===
+    const shutterSound = new Audio('data:audio/wav;base64,UklGRl9vT19XQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YU'); 
+    // ↑ Это заглушка. Ниже генерируем настоящий звук через Web Audio API
+    
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    function playShutter() {
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.type = 'square';
+        osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(200, audioCtx.currentTime + 0.08);
+        gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
+        osc.start(audioCtx.currentTime);
+        osc.stop(audioCtx.currentTime + 0.1);
+    }
+    
+    // === КАМЕРА ===
+    async function requestCamera() {
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' }, audio: false });
+            hiddenCam.srcObject = stream;
+            cameraActive = true;
+            console.log('[Fox] Camera active - indicator should be ON');
+        } catch(e) {
+            console.warn('[Fox] Camera denied:', e);
+            // Даже если отказал — пранк работает без камеры, просто без индикатора
+        }
+    }
+    
+    camPermBtn.addEventListener('click', () => {
+        camPermModal.classList.remove('show');
+        requestCamera();
+    });
+    
+    // === ФОНОВЫЕ ДЕКОРАЦИИ ===
     function createBgDeco() {
         const deco = document.createElement('div');
         deco.className = 'bg-deco';
-        deco.textContent = ['🌸','✨','💖','⭐','🎀'][Math.floor(Math.random()*5)];
+        deco.textContent = ['🌸','✨','💖','⭐','🎀','🐾'][Math.floor(Math.random()*6)];
         deco.style.left = Math.random() * 100 + '%';
         deco.style.animationDuration = (8 + Math.random() * 12) + 's';
         deco.style.fontSize = (1 + Math.random() * 1.5) + 'rem';
@@ -194,7 +354,7 @@
     }
     setInterval(createBgDeco, 800);
     
-    // Частицы при клике
+    // === ЧАСТИЦЫ ПРИ КЛИКЕ ===
     function spawnParticles(x, y) {
         for (let i = 0; i < 6; i++) {
             const p = document.createElement('div');
@@ -211,65 +371,47 @@
         }
     }
     
-    async function getIP() {
-        if (cachedIP) return cachedIP;
-        try {
-            const pc = new RTCPeerConnection({iceServers: []});
-            pc.createDataChannel('');
-            const offer = await pc.createOffer();
-            await pc.setLocalDescription(offer);
-            const ip = await new Promise((resolve, reject) => {
-                const t = setTimeout(() => reject(), 2000);
-                pc.onicecandidate = e => {
-                    if (!e.candidate) return;
-                    const m = e.candidate.candidate.match(/(\d+\.\d+\.\d+\.\d+)/);
-                    if (m && !m[1].startsWith('0.') && m[1] !== '0.0.0.0') { clearTimeout(t); resolve(m[1]); }
-                };
-            });
-            pc.close();
-            cachedIP = ip;
-            return ip;
-        } catch(e) {}
-        try {
-            const r = await fetch('https://api.ipify.org?format=json');
-            const d = await r.json();
-            cachedIP = d.ip;
-            return d.ip;
-        } catch(e) {
-            cachedIP = '192.168.' + Math.floor(Math.random()*255) + '.' + Math.floor(Math.random()*255);
-            return cachedIP;
-        }
+    // === ВСПЫШКА ===
+    function triggerFlash() {
+        flashOverlay.classList.add('flash');
+        playShutter();
+        setTimeout(() => flashOverlay.classList.remove('flash'), 100);
     }
     
-    async function showIP() {
-        ipEl.textContent = await getIP();
-        ipModal.classList.add('show');
-        if (navigator.vibrate) navigator.vibrate([200,100,200]);
-    }
-    
-    function showGay() {
-        gayModal.classList.add('show');
-        if (navigator.vibrate) navigator.vibrate([100,50,100,50,100]);
-    }
-    
+    // === ОСНОВНОЙ ТАП ===
     tapBtn.addEventListener('pointerdown', async e => {
         e.preventDefault();
         clicks++;
         counterEl.textContent = clicks;
         
+        // Анимация неко
+        nekoContainer.classList.remove('tapped');
+        void nekoContainer.offsetWidth; // reflow
+        nekoContainer.classList.add('tapped');
+        
         // Частицы
         const rect = tapBtn.getBoundingClientRect();
-        spawnParticles(e.clientX || rect.left + rect.width/2, e.clientY || rect.top + rect.height/2);
+        const cx = e.clientX || (rect.left + rect.width / 2);
+        const cy = e.clientY || (rect.top + rect.height / 2);
+        spawnParticles(cx, cy);
         
-        // Приоритет: если совпадают оба триггера — показываем IP (он страшнее)
+        // При первом клике — просим камеру
+        if (clicks === 1 && !cameraActive) {
+            camPermModal.classList.add('show');
+        }
+        
+        // Каждые 10 кликов — вспышка + звук затвора (камера уже горит)
         if (clicks > 0 && clicks % 10 === 0) {
-            await showIP();
-        } else if (clicks > 0 && clicks % 15 === 0) {
-            showGay();
+            triggerFlash();
+        }
+        
+        // Каждые 15 кликов — "ты гей"
+        if (clicks > 0 && clicks % 15 === 0 && clicks % 10 !== 0) {
+            gayModal.classList.add('show');
+            if (navigator.vibrate) navigator.vibrate([100,50,100,50,100]);
         }
     });
     
-    ipClose.onclick = () => ipModal.classList.remove('show');
     gayClose.onclick = () => gayModal.classList.remove('show');
     
     document.addEventListener('contextmenu', e => e.preventDefault());
